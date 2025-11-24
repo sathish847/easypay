@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pay Me Direct - College Project</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 50px; background: #f4f4f4; }
+        .paybtn {
+            padding: 20px 40px;
+            font-size: 24px;
+            background: #0077ff;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            margin: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .paybtn:hover { background: #0055cc; }
+    </style>
+</head>
+<body>
+    <h1>Buy T-Shirt from College Store</h1>
+    <h2>₹500 Only</h2>
+    
+    <!-- Replace with YOUR UPI ID -->
+    <button class="paybtn" onclick="payNow()">
+        Pay ₹500 via Google Pay / PhonePe / Paytm
+    </button>
+
+    <script>
+        function payNow() {
+            // CHANGE THIS TO YOUR UPI ID
+            const upiID = "yourname@oksbi";        // ← YOUR UPI (like 9876543210@upi, qwerty@okaxis, etc.)
+            const name  = "Your Name";             // Your name (shows in app)
+            const amount = "500";                  // Amount in rupees
+            const note  = "College Project T-Shirt"; // Optional note
+
+            const upiLink = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`;
+
+            // This opens Google Pay / PhonePe / BHIM automatically
+            window.location.href = upiLink;
+
+            // Optional: Show message after 3 seconds (in case app doesn't open)
+            setTimeout(() => {
+                alert("Payment sent! Check your UPI app and enter PIN to complete.");
+            }, 3000);
+        }
+    </script>
+
+    <hr>
+    <p><b>How to find your UPI ID?</b><br>
+       Open Google Pay → Click your photo → Bank account → Click linked number → See UPI ID</p>
+</body>
+</html>
