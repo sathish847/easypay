@@ -37,17 +37,22 @@
             const upiID = "sathishkumarr410@okaxis"; // UPI ID from Google Pay
             const amount = "1";                   // Amount in rupees
 
-            // Try multiple UPI link formats for better compatibility
+            // Try Google Pay specific deep link first
+            const tezLink = `tez://upi/pay?pa=${upiID}&am=${amount}&cu=INR&tn=EasyPay`;
+
+            // Fallback to standard UPI link
             const upiLink = `upi://pay?pa=${upiID}&am=${amount}&cu=INR`;
 
-            // For Android devices, also try intent URL
-            const intentUrl = `intent://pay?pa=${upiID}&am=${amount}&cu=INR#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;
-
-            // Try UPI link first, fallback to intent for Google Pay
+            // Try Tez link first (Google Pay), then UPI link
             try {
-                window.location.href = upiLink;
+                window.location.href = tezLink;
             } catch (e) {
-                window.location.href = intentUrl;
+                try {
+                    window.location.href = upiLink;
+                } catch (e2) {
+                    // If both fail, show manual instructions
+                    alert("Please manually enter in your UPI app:\nUPI ID: " + upiID + "\nAmount: ₹" + amount);
+                }
             }
 
             // Show message
