@@ -35,18 +35,24 @@
         function payNow() {
             // Payment to specified UPI ID
             const upiID = "sathishkumarr410@okaxis"; // UPI ID from Google Pay
-            const name  = "Easy Pay";             // Business name
             const amount = "1";                   // Amount in rupees
-            const note  = "Quick Payment";        // Payment note
 
+            // Try multiple UPI link formats for better compatibility
             const upiLink = `upi://pay?pa=${upiID}&am=${amount}&cu=INR`;
 
-            // This opens Google Pay / PhonePe / BHIM automatically
-            window.location.href = upiLink;
+            // For Android devices, also try intent URL
+            const intentUrl = `intent://pay?pa=${upiID}&am=${amount}&cu=INR#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;
 
-            // Optional: Show message after 3 seconds (in case app doesn't open)
+            // Try UPI link first, fallback to intent for Google Pay
+            try {
+                window.location.href = upiLink;
+            } catch (e) {
+                window.location.href = intentUrl;
+            }
+
+            // Show message
             setTimeout(() => {
-                alert("Payment initiated! Check your UPI app to complete the transaction.");
+                alert("If app doesn't open, manually enter UPI ID: " + upiID + " and amount: ₹" + amount);
             }, 3000);
         }
     </script>
