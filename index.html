@@ -39,7 +39,7 @@
             const amount = "1";                   // Amount in rupees
             const note  = "Quick Payment";        // Payment note
 
-            const upiLink = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`;
+            const upiLink = `upi://pay?pa=${upiID}&am=${amount}&cu=INR`;
 
             // This opens Google Pay / PhonePe / BHIM automatically
             window.location.href = upiLink;
