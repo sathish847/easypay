@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Easy Pay - Quick Payment</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         body { font-family: Arial; text-align: center; padding: 50px; background: #f4f4f4; }
         .paybtn {
@@ -22,13 +23,13 @@
     <h1>Quick Payment</h1>
     <h2>₹1 Only</h2>
 
-    <!-- Payment to specified phone number -->
-    <button class="paybtn" onclick="payNow()">
-        Pay ₹1 via Google Pay / PhonePe / Paytm
-    </button>
+    <!-- QR Code for payment -->
+    <div id="qrcode"></div>
+    <p>Scan this QR code with Google Pay, PhonePe, or Paytm to pay ₹1</p>
 
     <script>
-        function payNow() {
+        // Generate QR code on page load
+        window.onload = function() {
             // Payment to specified UPI ID
             const upiID = "sathishkumarr410@okaxis"; // UPI ID from Google Pay
             const name  = "Easy Pay";             // Business name
@@ -37,14 +38,16 @@
 
             const upiLink = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`;
 
-            // This opens Google Pay / PhonePe / BHIM automatically
-            window.location.href = upiLink;
-
-            // Optional: Show message after 3 seconds (in case app doesn't open)
-            setTimeout(() => {
-                alert("Payment sent! Check your UPI app and enter PIN to complete.");
-            }, 3000);
-        }
+            // Generate QR code
+            new QRCode(document.getElementById("qrcode"), {
+                text: upiLink,
+                width: 256,
+                height: 256,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        };
     </script>
 
     <hr>
