@@ -24,7 +24,7 @@
 
     <!-- Payment button -->
     <button class="paybtn" onclick="payNow()">
-        Pay ₹1 via UPI
+        Pay ₹1 via WhatsApp Pay
     </button>
 
     <p><b>Or pay directly:</b><br>
@@ -34,36 +34,43 @@
     <script>
         function payNow() {
             // Payment to specified UPI ID
-            const upiID = "sathishkumarr410@okaxis"; // UPI ID from Google Pay
+            const upiID = "sathishkumarr410@okaxis"; // UPI ID
             const amount = "1";                   // Amount in rupees
 
-            // Try Google Pay specific deep link first
-            const tezLink = `tez://upi/pay?pa=${upiID}&am=${amount}&cu=INR&tn=EasyPay`;
+            // WhatsApp Pay specific deep link
+            const whatsappLink = `whatsapp://pay?pa=${upiID}&am=${amount}&cu=INR&tn=EasyPay`;
+
+            // Android intent for WhatsApp Pay
+            const whatsappIntent = `intent://pay?pa=${upiID}&am=${amount}&cu=INR&tn=EasyPay#Intent;scheme=whatsapp;package=com.whatsapp;end`;
 
             // Fallback to standard UPI link
             const upiLink = `upi://pay?pa=${upiID}&am=${amount}&cu=INR`;
 
-            // Try Tez link first (Google Pay), then UPI link
+            // Try WhatsApp Pay first, then standard UPI
             try {
-                window.location.href = tezLink;
+                window.location.href = whatsappLink;
             } catch (e) {
                 try {
-                    window.location.href = upiLink;
+                    window.location.href = whatsappIntent;
                 } catch (e2) {
-                    // If both fail, show manual instructions
-                    alert("Please manually enter in your UPI app:\nUPI ID: " + upiID + "\nAmount: ₹" + amount);
+                    try {
+                        window.location.href = upiLink;
+                    } catch (e3) {
+                        // If all fail, show manual instructions
+                        alert("Please manually enter in WhatsApp Pay:\nUPI ID: " + upiID + "\nAmount: ₹" + amount);
+                    }
                 }
             }
 
             // Show message
             setTimeout(() => {
-                alert("If app doesn't open, manually enter UPI ID: " + upiID + " and amount: ₹" + amount);
+                alert("If WhatsApp doesn't open, manually enter UPI ID: " + upiID + " and amount: ₹" + amount + " in WhatsApp Pay");
             }, 3000);
         }
     </script>
 
     <hr>
-    <p><b>Payment Integration:</b><br>
-       This page integrates with Google Pay, PhonePe, Paytm, and other UPI apps for instant ₹1 payments.</p>
+    <p><b>WhatsApp Pay Integration:</b><br>
+       This page is optimized for WhatsApp Pay with fallbacks to other UPI apps for instant ₹1 payments.</p>
 </body>
 </html>
