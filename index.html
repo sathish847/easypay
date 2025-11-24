@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pay Me Direct - College Project</title>
+    <title>Easy Pay - Quick Payment</title>
     <style>
         body { font-family: Arial; text-align: center; padding: 50px; background: #f4f4f4; }
         .paybtn {
@@ -19,21 +19,21 @@
     </style>
 </head>
 <body>
-    <h1>Buy T-Shirt from College Store</h1>
-    <h2>₹500 Only</h2>
-    
-    <!-- Replace with YOUR UPI ID -->
+    <h1>Quick Payment</h1>
+    <h2>₹1 Only</h2>
+
+    <!-- Payment to specified phone number -->
     <button class="paybtn" onclick="payNow()">
-        Pay ₹500 via Google Pay / PhonePe / Paytm
+        Pay ₹1 via Google Pay / PhonePe / Paytm
     </button>
 
     <script>
         function payNow() {
-            // CHANGE THIS TO YOUR UPI ID
-            const upiID = "yourname@oksbi";        // ← YOUR UPI (like 9876543210@upi, qwerty@okaxis, etc.)
-            const name  = "Your Name";             // Your name (shows in app)
-            const amount = "500";                  // Amount in rupees
-            const note  = "College Project T-Shirt"; // Optional note
+            // Payment to specified phone number
+            const upiID = "8098023663@upi";        // Phone number UPI ID
+            const name  = "Easy Pay";             // Business name
+            const amount = "1";                   // Amount in rupees
+            const note  = "Quick Payment";        // Payment note
 
             const upiLink = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`;
 
@@ -48,7 +48,7 @@
     </script>
 
     <hr>
-    <p><b>How to find your UPI ID?</b><br>
-       Open Google Pay → Click your photo → Bank account → Click linked number → See UPI ID</p>
+    <p><b>Payment Integration:</b><br>
+       This page integrates with Google Pay, PhonePe, Paytm, and other UPI apps for instant ₹1 payments.</p>
 </body>
 </html>
